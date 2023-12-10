@@ -1,5 +1,6 @@
 package modelo;
 
+import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,9 +16,9 @@ public class PayU implements PasarelaPago{
 	}
 
 	@Override
-	public void registrarTransaccion(Transaccion transaccion) {
+	public void registrarTransaccion(Transaccion transaccion) throws IOException {
 		
-		String nombreArchivo = "./Data/PayU.txt";
+		String nombreArchivo = "./Data/PayU";
 		registrarEnArchivo(nombreArchivo,transaccion);
 
 	}
@@ -29,7 +30,9 @@ public class PayU implements PasarelaPago{
 	}
 
 	
-	public void registrarEnArchivo(String nombre, Transaccion transaccion)
+
+	
+	public void registrarEnArchivo(String nombre, Transaccion transaccion) throws IOException
 	{
 		
 		ResultadoPago resultadoPago = transaccion.getResultadoPago(); 
@@ -42,19 +45,18 @@ public class PayU implements PasarelaPago{
 		String num = datosP.getNumero();
 		String nombreT = datosP.getNombreTitular();
 		
-		try(PrintWriter writer = new PrintWriter(new FileWriter(nombre,true)))
-		{
-			writer.print("Resultado: "+resultado+";");
-			writer.print("Datos de transaccion: "+monto+","+numCuenta+","+numTran+";");
-			writer.print("Informacion de pago: "+num+","+nombreT);
-			writer.println();		
+		String nuevaLinea = "\n"+"Resultado: "+resultado+";"+" Datos de transaccion: "+monto+","+numCuenta+","+numTran+";"+" Informacion de pago: "+num+","+nombreT;
+		
 			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(nombre, true));
+		bufferedWriter.write(nuevaLinea);
+		bufferedWriter.newLine();
+		bufferedWriter.flush();
+		bufferedWriter.close();
+			
 		
 	}
+
 
 	@Override
 	public String darNombre() {
