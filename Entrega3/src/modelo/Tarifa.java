@@ -10,15 +10,21 @@ public class Tarifa {
 	private double tarifaOtraSede;
 	
 	private double tarifaConductorAdicional;
+	private double tarifaPorcentajePrima;
 	
 	
-	public Tarifa(double laTarifaTempAlta, double laTarifaTempBaja, double laTarifaOtraSede, double laTarifaCondutorAdicional)
+	public Tarifa(double laTarifaTempAlta, double laTarifaTempBaja, double laTarifaOtraSede, double laTarifaCondutorAdicional,double laTarifaProcentajePrima)
 	{
 		this.tarifaTempAlta = laTarifaTempAlta;
 		this.tarifaTempBaja = laTarifaTempBaja;
 		this.tarifaOtraSede = laTarifaOtraSede;
 		this.tarifaConductorAdicional = laTarifaCondutorAdicional;
+		this.tarifaPorcentajePrima= laTarifaProcentajePrima;
 		
+	}
+	public double getTarifaPorcentajePrima()
+	{
+		return tarifaPorcentajePrima;
 	}
 	
 	

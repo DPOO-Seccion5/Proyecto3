@@ -1,0 +1,2 @@
+
+Resultado: La transaccion fue aprovada; Datos de transaccion: 90000.0,123456789,595064; Informacion de pago: a,a

@@ -5,10 +5,10 @@ public class InfoPago {
 	
 	private double monto;
 	private String numCuenta;
-	private String numTransaccion;
+	private int numTransaccion;
 	
 	
-	public InfoPago(double monto, String numCuenta, String numTransaccion) {
+	public InfoPago(double monto, String numCuenta, int numTransaccion) {
 		super();
 		this.monto = monto;
 		this.numCuenta = numCuenta;
@@ -36,12 +36,12 @@ public class InfoPago {
 	}
 
 
-	public String getNumTransaccion() {
+	public int getNumTransaccion() {
 		return numTransaccion;
 	}
 
 
-	public void setNumTransaccion(String numTransaccion) {
+	public void setNumTransaccion(int numTransaccion) {
 		this.numTransaccion = numTransaccion;
 	}
 	

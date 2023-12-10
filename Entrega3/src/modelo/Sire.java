@@ -35,7 +35,7 @@ public class Sire implements PasarelaPago{
 		InfoPago datos = transaccion.getInformacion();
 		double monto = datos.getMonto();
 		String numCuenta = datos.getNumCuenta();
-		String numTran = datos.getNumTransaccion();
+		int numTran = datos.getNumTransaccion();
 		DatosPago datosP = transaccion.getTarjeta();
 		String num = datosP.getNumero();
 		String nombreT = datosP.getNombreTitular();
@@ -52,6 +52,12 @@ public class Sire implements PasarelaPago{
 			e.printStackTrace();
 		}
 		
+	}
+
+	@Override
+	public String darNombre() {
+		// TODO Auto-generated method stub
+		return "Sire";
 	}
 
 

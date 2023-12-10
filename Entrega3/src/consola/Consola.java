@@ -184,6 +184,11 @@ public class Consola {
 			
 		}
 		
+		public void crearTransaccion(Cliente cliente, double monto, String pasarela) throws IOException
+		{
+			compañia.crearTransaccion(cliente, monto, pasarela);
+		}
+		
 		public void registroCliente(String nombre,String numID, String fechaNacimiento, String nacionalidad, String username, String password, String numeroLicencia, String paisExpedicion,String numeroTarjeta, String fechaVencimiento, String nombreTitular, String cvc) {
 			Cliente informacion = compañia.crearCliente(nombre, numID, fechaNacimiento, nacionalidad, username, password, numeroLicencia, paisExpedicion, numeroTarjeta, fechaVencimiento, nombreTitular, cvc);
 		}
@@ -227,9 +232,9 @@ public class Consola {
 			
 		}
 		
-		public void crearVehiculo(String nombre, String marca, String placa, String modelo, String color, String tipoTrans, String ubicacion, String laCategoria, double precio, String tamaño, double tempAlta, double tempBaja, double otraSede, double conAd)
+		public void crearVehiculo(String nombre, String marca, String placa, String modelo, String color, String tipoTrans, String ubicacion, String laCategoria, double precio, String tamaño, double tempAlta, double tempBaja, double otraSede, double conAd, double prima)
 		{
-			compañia.crearVehiculo(nombre, marca, placa, modelo, color, tipoTrans, ubicacion, laCategoria, precio, tamaño, tempAlta, tempBaja, otraSede, conAd);
+			compañia.crearVehiculo(nombre, marca, placa, modelo, color, tipoTrans, ubicacion, laCategoria, precio, tamaño, tempAlta, tempBaja, otraSede, conAd, prima);
 			
 		}
 		
@@ -245,9 +250,15 @@ public class Consola {
 		public double crearReserva(Cliente cliente, String categoria, String sedeRecogida, String sedeDevuelta,Cobros cobro,String fecha, String rangoHor, String temporada, ArrayList<ConductorExtra> conductoresExtra)
 		{
 			double precio = compañia.crearReserva(cliente, categoria, sedeRecogida, sedeDevuelta, cobro, fecha, rangoHor, temporada, conductoresExtra);
+			String factura = compañia.getFactura(cliente, precio);
+			generarFactura(factura);
+			
 			return precio;
 		}
 		
+		public void generarFactura(String factura) {
+
+		}
 		
 		public String nombreCarro(String categoria)
 		{

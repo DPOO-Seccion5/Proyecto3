@@ -1,16 +1,13 @@
 package Interfaz;
 import javax.swing.*;
 
-<<<<<<< HEAD
 
-
-=======
->>>>>>> parent of 3d5d214 (Merge remote-tracking branch 'origin/david')
 import consola.Consola;
 import procesamiento.Compañia;
 import modelo.Cliente;
 import modelo.Cobros;
 import modelo.ConductorExtra;
+import modelo.DatosPago;
 import modelo.Empleado;
 import modelo.Vehiculo;
 
@@ -54,6 +51,11 @@ public class VentanaInicio  extends JFrame{
 		 return bool; 
 	  }  
   
+  public void crearTransaccion(Cliente cliente, double monto, String pasarela) throws IOException
+	{
+		consola.crearTransaccion(cliente, monto, pasarela);
+	}
+  
   public Cliente getCliente()
   {
 	  return cliente;
@@ -88,9 +90,9 @@ public class VentanaInicio  extends JFrame{
   }
   
   
-  public void crearVehiculo(String nombre, String marca, String placa, String modelo, String color, String tipoTrans, String ubicacion, String laCategoria, double precio, String tamaño, double tempAlta, double tempBaja, double otraSede, double conAd)
+  public void crearVehiculo(String nombre, String marca, String placa, String modelo, String color, String tipoTrans, String ubicacion, String laCategoria, double precio, String tamaño, double tempAlta, double tempBaja, double otraSede, double conAd, double prima)
   {
-	  consola.crearVehiculo(nombre, marca, placa, modelo, color, tipoTrans, ubicacion, laCategoria, precio, tamaño, tempAlta, tempBaja, otraSede, conAd);
+	  consola.crearVehiculo(nombre, marca, placa, modelo, color, tipoTrans, ubicacion, laCategoria, precio, tamaño, tempAlta, tempBaja, otraSede, conAd,prima);
   }
   
   
@@ -105,6 +107,8 @@ public class VentanaInicio  extends JFrame{
 		double precio = consola.crearReserva(cliente, categoria, sedeRecogida, sedeDevuelta, cobro, fecha, rangoHor, temporada, conductoresExtra);
 		return precio;
 	}
+  
+  
   
   public String nombreCarro(String categoria)
   {

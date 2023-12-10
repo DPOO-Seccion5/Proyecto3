@@ -372,8 +372,9 @@ public class Loader {
 	                 int tarifaBaja = Integer.parseInt(datosCategoria1[4]);
 	                 int tarifaSede = Integer.parseInt(datosCategoria1[5]);
 	                 int tarifaConductor = Integer.parseInt(datosCategoria1[6]);
+	                 double prima = Double.parseDouble(datosCategoria1[7]);
 	                 
-	                 Tarifa tarifa = new Tarifa(tarifaAlta,tarifaBaja,tarifaSede,tarifaConductor);
+	                 Tarifa tarifa = new Tarifa(tarifaAlta,tarifaBaja,tarifaSede,tarifaConductor,prima);
 	                         
 	                 Categoria categoria = new Categoria(nombre,precio,tamaño,tarifa);
 	                 
@@ -461,8 +462,9 @@ public class Loader {
 			double tarBaja = taf.getTarifaBaja();
 			double otraSede = taf.getTarifaOtraSede();
 			double conAd = taf.getTarifaConductor();
+			double prima = taf.getTarifaPorcentajePrima();
 			
-			String nuevaLinea = "\n"+nombre+"="+marca+";"+placa+";"+modelo+";"+color+";"+tipoTrans+";"+"{"+nomCat+","+precio+","+tamaño+","+"{"+tarAlta+","+tarBaja+","+otraSede+","+conAd+"}"+";"+"{"+alquilado+","+ubicacion+","+fechaDev+","+lugarDev+","+fechaDis+"}";
+			String nuevaLinea = "\n"+nombre+"="+marca+";"+placa+";"+modelo+";"+color+";"+tipoTrans+";"+"{"+nomCat+","+precio+","+tamaño+","+"{"+tarAlta+","+tarBaja+","+otraSede+","+conAd+","+prima+"}"+";"+"{"+alquilado+","+ubicacion+","+fechaDev+","+lugarDev+","+fechaDis+"}";
 
 			try {
 				BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));

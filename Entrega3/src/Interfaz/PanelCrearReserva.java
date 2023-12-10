@@ -56,7 +56,11 @@ public class PanelCrearReserva extends JPanel {
         comboBox2.addItem("suv");
         comboBox2.addItem("van");
         comboBox2.addItem("pequeño");
-        comboBox2.addItem("grande");
+        comboBox2.addItem("patineta_electrica");
+        comboBox2.addItem("bicicletas_electricas");
+        comboBox2.addItem("atv");
+        comboBox2.addItem("moto");
+        comboBox2.addItem("bicicleta");
         
         optionGroup2.add(labelComponent2);
         optionGroup2.add(comboBox2);
@@ -125,9 +129,10 @@ public class PanelCrearReserva extends JPanel {
             	 }
             	
   
-            	 double precio = ventanaInicio.crearReserva(cliente, selectedTipoVehiculo, sedeRe, selectedSede, cobro, fecha, rangoHoras, selectedSeason, lista);
-            	 
-            	 PanelConfirmarReserva panelConfirResrva = new PanelConfirmarReserva(cardPanel, cardLayout,precio,selectedTipoVehiculo, appCliente);
+            	 double precio=0.0;
+
+				 precio = ventanaInicio.crearReserva(cliente, selectedTipoVehiculo, sedeRe, selectedSede, cobro, fecha, rangoHoras, selectedSeason, lista); 
+            	 PanelConfirmarReserva panelConfirResrva = new PanelConfirmarReserva(cardPanel, cardLayout,precio,selectedTipoVehiculo, appCliente,cliente);
                  cardPanel.add(panelConfirResrva,"panelConfReserva");
             	 
             	 

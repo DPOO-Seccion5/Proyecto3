@@ -1,5 +1,7 @@
 package modelo;
 
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,8 +16,8 @@ public class PayPal implements PasarelaPago{
 	}
 
 	@Override
-	public void registrarTransaccion(Transaccion transaccion) {
-		String nombreArchivo = "./Data/PayPal.txt";
+	public void registrarTransaccion(Transaccion transaccion) throws IOException {
+		String nombreArchivo = "./Data/PayPal";
 		registrarEnArchivo(nombreArchivo,transaccion);
 		
 	}
@@ -27,7 +29,7 @@ public class PayPal implements PasarelaPago{
 	}
 	
 	
-	public void registrarEnArchivo(String nombre, Transaccion transaccion)
+	public void registrarEnArchivo(String nombre, Transaccion transaccion) throws IOException
 	{
 		
 		ResultadoPago resultadoPago = transaccion.getResultadoPago(); 
@@ -35,23 +37,27 @@ public class PayPal implements PasarelaPago{
 		InfoPago datos = transaccion.getInformacion();
 		double monto = datos.getMonto();
 		String numCuenta = datos.getNumCuenta();
-		String numTran = datos.getNumTransaccion();
+		int numTran = datos.getNumTransaccion();
 		DatosPago datosP = transaccion.getTarjeta();
 		String num = datosP.getNumero();
 		String nombreT = datosP.getNombreTitular();
 		
-		try(PrintWriter writer = new PrintWriter(new FileWriter(nombre,true)))
-		{
-			writer.print("Resultado: "+resultado+";");
-			writer.print("Datos de transaccion: "+monto+","+numCuenta+","+numTran+";");
-			writer.print("Informacion de pago: "+num+","+nombreT);
-			writer.println();		
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		String nuevaLinea = "\n"+"Resultado: "+resultado+";"+" Datos de transaccion: "+monto+","+numCuenta+","+numTran+";"+" Informacion de pago: "+num+","+nombreT;
 		
+			
+		BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(nombre, true));
+		bufferedWriter.write(nuevaLinea);
+		bufferedWriter.newLine();
+		bufferedWriter.flush();
+		bufferedWriter.close();
+			
+		
+	}
+
+	@Override
+	public String darNombre() {
+		// TODO Auto-generated method stub
+		return "PayPal";
 	}
 
 }

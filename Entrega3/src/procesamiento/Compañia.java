@@ -7,6 +7,7 @@ import procesamiento.Loader;
 import modelo.*;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 
 public class Compañia {
@@ -166,6 +167,7 @@ public class Compañia {
 		double temp = 0.0;
 		double cambioSede = 0.0;
 		double conExtra = 0.0;
+		double prima = 0.0;
 		for (Vehiculo carro : inventario.getVehiculos())
 		{
 			Categoria catCarro = carro.getCategoria();
@@ -182,6 +184,10 @@ public class Compañia {
 				else if (temporada.equals("Baja"))
 				{
 					precio = tarifa.getTarifaBaja();
+					
+					double prima_real= precio * prima;
+
+					precio = precio + prima_real;
 				}
 				if(sedeRecogida.equals(sedeDevuelta))
 				{
@@ -192,6 +198,7 @@ public class Compañia {
 				{
 					cambioSede = tarifa.getTarifaOtraSede();
 				}
+				prima = tarifa.getTarifaPorcentajePrima();
 				if(conductoresExtra.size() > 0)
 				{
 					double precioCon = tarifa.getTarifaConductor();
@@ -218,11 +225,40 @@ public class Compañia {
 		
 	}
 	
+	public String getFactura(Cliente cliente, double precio) {
+		Reserva reserva = cliente.getReserva();
+
+		String sede_dev= reserva.getSedeDevuelta();
+		String sede_rec= reserva.getSedeRecogida();
+		String categoria= reserva.getCategoria();
+		String factura = "sede recogida: " + sede_rec + " sede devuelta: " + sede_dev + "categoria: " + categoria;
+		return factura;
+	}
 	
-	public void crearTransaccion(DatosPago infoTarjeta, String mensaje, boolean resultado, double monto, String nomCuenta, String numTransaccion)
+	
+	public void crearTransaccion(Cliente cliente, double monto, String pasarela) throws IOException
 	{
-		ResultadoPago resultadoP = new ResultadoPago(resultado,mensaje);
 		
+		String numCuenta = "123456789";
+		boolean resultado = true;
+		String mensaje = "La transaccion fue aprovada";
+		Random random = new Random();
+		DatosPago infoTarjeta = cliente.getDatosMetodoPago();
+		int numTransaccion = random.nextInt(1000000);
+		ResultadoPago resultadoP = new ResultadoPago(resultado,mensaje);
+		InfoPago info = new InfoPago(monto, numCuenta, numTransaccion);
+		
+		Transaccion transaccion = new Transaccion(resultadoP,infoTarjeta,info);
+		
+		for(PasarelaPago pasarela1 : pasarelas)
+		{
+			String nombre = pasarela1.darNombre();
+			if(nombre.equals(pasarela))
+			{
+				pasarela1.realizarPago(infoTarjeta, info);
+				pasarela1.registrarTransaccion(transaccion);
+			}
+		}
 		
 		
 	}
@@ -351,9 +387,9 @@ public class Compañia {
 		
 	}
 	
-	public void crearVehiculo(String nombre, String marca, String placa, String modelo, String color, String tipoTrans, String ubicacion, String laCategoria, double precio, String tamaño, double tempAlta, double tempBaja, double otraSede, double conAd)
+	public void crearVehiculo(String nombre, String marca, String placa, String modelo, String color, String tipoTrans, String ubicacion, String laCategoria, double precio, String tamaño, double tempAlta, double tempBaja, double otraSede, double conAd, double prima)
 	{
-		Tarifa tarifa = new Tarifa(tempAlta, tempBaja, otraSede, conAd);
+		Tarifa tarifa = new Tarifa(tempAlta, tempBaja, otraSede, conAd,prima);
 		
 		Categoria categoria = new Categoria(laCategoria, precio, tamaño, tarifa);
 		
